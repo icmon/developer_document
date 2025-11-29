@@ -103,6 +103,8 @@ develop: เป็น branch หลักสำหรับการพัฒน
 feature/xxx: branch สำหรับพัฒนา feature ใหม่แต่ละตัว
 release/xxx: branch สำหรับเตรียมการ release เวอร์ชันใหม่
 hotfix/xxx: branch สำหรับแก้ไข bug เร่งด่วนใน production​
+enhancement/xxx: branch สำหรับแก้ไข enhancement ใน production​
+ 
 
 สำหรับ **ทีมขนาดใหญ่ (Large Team)** การตั้งชื่อ Branch ต้องเน้นความ **"ตรวจสอบได้ (Traceability)"** และ **"ความเป็นมาตรฐาน (Standardization)"** เพื่อให้รู้ว่าใครทำอะไร เกี่ยวข้องกับงานไหน และสถานะเป็นอย่างไร
 
