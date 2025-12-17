@@ -46,8 +46,22 @@ CRUD  + ORM  +JWT + MVC
 
 # ##################################
 # Microservices REST API System Documentation
+ โครงสร้างและการทำงานของ NestJS (Backend)
 
-## 1. โครงสร้างและการทำงานของ NestJS (Backend)
+ ระบบที่ นำมาใช้
+1.JWT
+2.validator
+3.ORM
+4.Database PostgreSQL
+5.Redis cache
+6.Gitlow
+7.comment code template
+8.CI/CD pipeline
+9.Robot Framework มา test API
+10.Task management
+11.Docker Compose
+12.Jenkins (Infrastructure)
+
 
 ### 1.1 โครงสร้าง Architecture
 ```
