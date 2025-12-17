@@ -71,11 +71,10 @@
     1) แผนการพัฒนา ทดสอบ และส่งมอบ  
     - ระบุ Milestone: วิเคราะห์/ออกแบบ, พัฒนา, ทดสอบระบบ+UAT, Go-live, Maintenance พร้อม Deliverables ตาม TOR เช่น System Requirements Spec, High-level Architecture, Test Plan, Test Report และ UAT Report[1]
         
-เพื่อให้ คุณ ทำตามขั้นตอนดังนี้
-
-    1.สร้างบทนำ
-    2.สร้างบทนิยาม
-    3.สร้างบทหัวข้อ
+   <hr>
+    1.บทนำ
+    2.บทนิยาม
+    3.บทหัวข้อ
     5.ออกแบบคู่มือ
     6.ออกแบบ workflow
     7.TASK LIST Template
@@ -83,8 +82,8 @@
     9.ระบบจำนวนคนที่ใช้ในการทำงาน  ภายใน  120 วัน
     10.งบประมาณที่ใช้  และ จำนวนคนที่ใช้ในการทำงาน 
     10.1 Technical Lead + Project Manager + DevOps Engineer  จัดการ Infrastructure อออกแบบ CI/CD Gitflow Test code แบบต่าง ๆ  
-      10.1.1 สร้างเอกสาร SRS  + User Document
-      10.1.2.สร้าง Template code
+      10.1.1 เอกสาร SRS  + User Document
+      10.1.2. Template code
       10.1.3.ออกแบบ Data flow
       10.1.4.ออกแบบ Work flow
       10.1.5.ออกแบบ Template รายงาน
@@ -97,13 +96,13 @@
         - Deploy  ระบบ  Frontend (Next.js + React + TypeScript)
 
     10.2 Backend Developer  พัฒนา Module ต่าง ๆ  + Database Engineer   ออกแบบและ Optimize Database    ระบบ API Backend (NestJS) TypeScript
-     10.2.1 สร้าง Database + สร้างเอกสาร Database  
-     10.2.2 สร้าง ออกแบบและ Optimize Database +  สร้างเอกสาร Database  
-     10.2.1 สร้าง Backend API Function business logic  functions 
+     10.2.1  Database + เอกสาร Database  
+     10.2.2  ออกแบบและ Optimize Database +  เอกสาร Database  
+     10.2.1  Backend API Function business logic  functions 
 
     10.3 Fontend Developer  พัฒนา Module ต่าง ๆ  + ออกแบบ  UX UI  HTML CSS   ระบบ  Frontend (Next.js + React + TypeScript)
-     10.2.1 สร้าง ระบบ Fontend 
-
+     10.2.1  ระบบ Fontend 
+   <hr>
   
   ออกแบบระบบ  Backend (NestJS) TypeScript
     - JWT Authentication
@@ -129,7 +128,7 @@
     7.Gitflow
     8.CI/CD
 
-
+   <hr>
 
   ออกแบบระบบ  Frontend (Next.js + React + TypeScript)
     -JWT Authentication
@@ -147,7 +146,7 @@
     6.Testing
     7.Gitflow
     8.CI/CD
-
+   <hr>
 
 # ** Resalte **
 
