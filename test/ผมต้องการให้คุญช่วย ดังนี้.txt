@@ -1,0 +1,643 @@
+ผมต้องการให้คุญช่วย ดังนี้
+1.จัดทำเอกสารการออกแบบระบบบ
+   บทนำ (Introduction)
+   บทนิยาม (Definitions)
+   โครงสร้างระบบและเทคโนโลยี (System Architecture & Technologies)
+   แนะนำ
+   สรุป (Conclusion)
+  
+2.วาดรูป data flow diagram รูปสี
+การออกแบบ Data Flow นี้ครอบคลุม:
+  2.1.Flow ของข้อมูล ระหว่าง component ต่างๆ
+  2.2.ลำดับการทำงาน ของแต่ละกระบวนการ
+  2.3.การแลกเปลี่ยนข้อมูล กับระบบภายนอก
+  2.4.การจัดการ state และ cache
+  2. 5.Security flow สำหรับการป้องกันข้อมูล
+  ข้อมูลจะไหลจากผู้ใช้ → Frontend → API Gateway → Services → Database → External Systems และกลับมาหาผู้ใช้ในรูปแบบที่ต้องการ
+3.รวมข้อมูลเป็นเอกสาร msword DCMS.docx
+
+
+ระบบบริหารจัดการศูนย์ข้อมูลกลาง (Data Center Management System: DCMS) 
+เพื่อใช้ในการควบคุม ติดตาม และบริหารการดําเนินงานของศูนย์ Data Center ของ สทอภ. 
+ศูนย์ราชการฯ และ สทอภ. ศรีราชา 
+
+โดยมีรายละเอียดดังนี้
+6.1 ระบบแบบฟอร์มขอเข้าใช้งานศูนย์ Data Center
+6.1.1 รองรับการเข้าสู่ระบบงานศูนย์บนระบบยืนยันตัวตนกลางของ สทอภ. (Single Sign On)
+6.1.2 สามารถเชื่อมโยงกับระบบบริหารทรัพยากรบุคคล (HR) บนแพลตฟอร์ม ERP ของ สทอภ. เพื่อดึงข้อมูลผู้ใช้งานศูนย์ หมายเลขประจําตัวพนักงาน มาแสดงผลได้
+6.1.3 สามารถเชื่อมโยงกับระบบบริหารทรัพย์สิน (Fix Asset) บนแพลตฟอร์ม ERP ของ สทอภ. เพื่อดึงข้อมูลทรัพย์สิน หมายเลขครุภัณฑ์ ผู้ถือครอง และสถานะบัญชีครุภัณฑ์ได้
+6.1.4 มีแบบฟอร์มคําขอเข้าใช้งานศูนย์ Data Center สําหรับบุคลากรภายใน บุคลากรภายนอก และผู้ที่ได้รับอนุญาต โดยสามารถระบุจุดประสงค์การเข้าใช้งาน วัน-ที่ เวลาเข้าออก รายการอุปกรณ์หรือเครื่องมือที่นําเข้าพื้นที่ รายชื่อบุคคลที่เข้า และแนบเอกสารที่เกี่ยวข้องได้
+6.1.6 ระบบต้องสามารถกําหนดรหัสอ้างอิงคําขอ (Reference ID / Form ID) ได้ตามรูปแบบที่ สทอภ. กําหนด เพื่อใช้ในการติดตามและอ้างอิงข้อมูลคําขอในระบบต่าง ๆ ของ สทอภ.
+6.1.7 รองรับการแนบรายการอุปกรณ์และสิ่งของที่นําเข้าออก พร้อมทั้งสามารถเชื่อมโยงกับระบบแบบแผนผังเครือข่าย (Network Diagram / System Diagram) เป็นต้น
+6.1.8 รองรับการเชื่อมต่อข้อมูลผ่าน API เพื่อให้ระบบอื่นของ สทอภ. สามารถนําข้อมูลไปแสดงผลหรือวิเคราะห์ต่อได้
+6.2 ระบบจัดเก็บข้อมูลอุปกรณ์ภายในศูนย์ Data Center
+6.2.1 สํารวจข้อมูลอุปกรณ์ทั้งหมดภายในศูนย์ Data Center ร่วมกับทาง สทอภ.
+6.2.2 จัดทํารายการข้อมูลอุปกรณ์ทั้งหมดภายในศูนย์ Data Center เช่น Server, Network Switch, Router, Firewall, Storage, Rack และอุปกรณ์ประกอบอื่น ๆ โดยใช้ข้อมูลจากการสํารวจและฐานข้อมูลเดิมของ สทอภ. เพื่อให้ข้อมูลครบถ้วน
+6.2.3 ระบบต้องสามารถเพิ่ม และปรับปรุงข้อมูลอุปกรณ์ภายในศูนย์ Data Center ได้
+6.2.4 มีหน้าจอแสดงผังแร็ค (Rack Layout Management) โดยสามารถระบุหมายเลขแร็ค ตําแหน่งยู (U Position) ของอุปกรณ์แต่ละเครื่อง
+6.2.5 ระบบสามารถบันทึกคุณสมบัติทางเทคนิคของอุปกรณ์ เช่น Serial Number, IP Address, MAC Address, หมายเลขครุภัณฑ์, เจ้าของระบบ, สถานะการใช้งาน, วันหมดอายุการรับประกัน และ Vendor ที่เกี่ยวข้อง เป็นต้น
+6.2.6 สามารถจัดเก็บและเชื่อมโยงข้อมูลการบํารุงรักษา (Maintenance Record) และประวัติการเปลี่ยนอะไหล่และซ่อมบํารุง
+6.2.7 รองรับการแนบเอกสารประกอบ เช่น รายละเอียดของอุปกรณ์, แบบสํารวจ, แผนผังเครือข่ายของระบบ (Network Diagram / System Diagram) เป็นต้น
+6.2.8 รองรับการเชื่อมโยงกับระบบบริหารทรัพย์สิน (Fix Asset) บนแพลตฟอร์ม ERP ของ สทอภ. เพื่อดึงข้อมูลทรัพย์สิน หมายเลขครุภัณฑ์ ผู้ถือครอง และสถานะบัญชีครุภัณฑ์
+6.2.9 แสดงสถานะการใช้งานของอุปกรณ์ เช่น สถานะออนไลน์/ออฟไลน์ IP Address, ชื่อระบบ, Rack, อุณหภูมิ, ความชื้น เป็นต้น
+6.2.10 มีระบบบันทึกประวัติการแก้ไขข้อมูล (Edit History) พร้อมผู้แก้ไข
+6.2.11 รองรับการเชื่อมต่อข้อมูลผ่าน API เพื่อให้ระบบอื่นของ สทอภ. สามารถนําข้อมูลไปแสดงผลหรือวิเคราะห์ต่อได้
+6.3 ระบบการรายงานข้อมูล
+6.3.1 รายงานสถิติการเข้าใช้งานศูนย์ Data Center
+•	6.3.1.1 รายงานสถิติการเข้าใช้งานรายวัน/รายเดือน/รายปี
+•	6.3.1.2 สถานะการอนุมัติคําขอ (Approved / Pending / Rejected) และเวลาที่ใช้ในการอนุมัติ
+•	6.3.1.3 รายงานรายการคําขอที่ระบุการนําอุปกรณ์หรือบุคคลภายนอกเข้าใช้งานพื้นที่
+•	6.3.1.4 รายงานสรุปจำนวนและประเภทของทรัพย์สินภายในศูนย์ Data Center สามารถระบุความครบถ้วนตามการปรับปรุง หรือสถานะได้
+6.3.2 มี Dashboard แสดงภาพรวมของรายการเข้าสู่ระบบ และจํานวนผู้เข้าใช้ศูนย์ Data Center แบบเรียลไทม์
+6.3.3 สามารถ Export รายงานออกเป็นไฟล์ PDF หรือ Excel หรือ CSV ได้
+6.3.4 ระบบต้องสามารถสรุปข้อมูลการเข้าใช้งานพื้นที่ในศูนย์ Data Center
+6.3.5 มีระบบบันทึกปัญหาหรือข้อร้องเรียน (เช่น อุปกรณ์ขัดข้อง) และสามารถติดตามผลได้
+6.3.6 มีเมนูแสดงการเก็บ log การเข้าใช้งานระบบ
+6.4 การรองรับการใช้งาน
+6.4 ระบบรองรับการใช้งานผ่านเว็บบราวเซอร์มาตรฐานทั้งบนเครื่องคอมพิวเตอร์และอุปกรณ์เคลื่อนที่แบบตอบสนอง (Responsive Web Application)
+ 
+
+ผมต้องการให้คุญช่วย ดังนี้
+1.จัดทำเอกสารการออกแบบระบบบ
+   บทนำ (Introduction)
+   บทนิยาม (Definitions)
+   โครงสร้างระบบและเทคโนโลยี (System Architecture & Technologies)
+   แนะนำ
+   สรุป (Conclusion)
+  
+2.วาดรูป data flow diagram รูปสี
+การออกแบบ Data Flow นี้ครอบคลุม:
+  2.1.Flow ของข้อมูล ระหว่าง component ต่างๆ
+  2.2.ลำดับการทำงาน ของแต่ละกระบวนการ
+  2.3.การแลกเปลี่ยนข้อมูล กับระบบภายนอก
+  2.4.การจัดการ state และ cache
+  2. 5.Security flow สำหรับการป้องกันข้อมูล
+  ข้อมูลจะไหลจากผู้ใช้ → Frontend → API Gateway → Services → Database → External Systems และกลับมาหาผู้ใช้ในรูปแบบที่ต้องการ
+3.รวมข้อมูลเป็นเอกสาร msword DCMS.docx
+
+ส่วนที่ 1: การออกแบบและวิเคราะห์ระบบ
+Table of Contents
+
+ส่วนที่ 1: การออกแบบและวิเคราะห์ระบบ
+1. บทนำ (Introduction)
+    ระบบบริหารจัดการศูนย์ข้อมูลกลาง (Data Center Management System: DCMS) เป็นระบบที่พัฒนาขึ้นเพื่อควบคุม ติดตาม และบริหารการดำเนินงานของศูนย์ Data Center ของ สทอภ. ทั้งศูนย์ราชการฯ และ ศรีราชา ระบบนี้จะช่วยเพิ่มประสิทธิภาพการจัดการ การรักษาความปลอดภัย และการติดตามทรัพยากรภายในศูนย์ข้อมูล
+
+2. บทนิยาม (Definitions)
+    DCMS: Data Center Management System
+    สทอภ.: สำนักงานพัฒนาเทคโนโลยีอวกาศและภูมิสารสนเทศ (องค์การมหาชน)
+    ERP: Enterprise Resource Planning
+    API: Application Programming Interface
+    SSO: Single Sign-On
+    U Position: หน่วยวัดความสูงใน Rack (1U = 1.75 นิ้ว)
+
+3. โครงสร้างระบบและเทคโนโลยี (System Architecture & Technologies)
+3.1 Architecture Pattern: Microservices Ready Monolith
+3.2 Technology Stack
+
+Backend (NestJS):
+    NestJS Framework
+    - TypeScript
+    - TypeORM
+    - PostgreSQL
+    - Redis
+    - JWT Authentication
+    - Class-validator
+    - Swagger/OpenAPI
+
+Frontend:
+    - Option 1: React + Next.js + TypeScript
+    - Option 2: PHP CodeIgniter 3 HMVC
+    - TailwindCSS
+    - Axios
+    - React Query
+    - DevOps & Infrastructure:
+    - Docker & Docker Compose
+    - Jenkins
+    - GitLab CI/CD
+    - Grafana + Prometheus
+    - n8n (Workflow Automation)
+    - Robot Framework (Testing)
+
+4. Workflow ระบบ (System Workflows)
+4.1 Workflow การขอเข้าใช้งานศูนย์ Data Center
+    1. ผู้ใช้เข้าสู่ระบบผ่าน SSO
+    2. ระบบดึงข้อมูลจาก HR System
+    3. กรอกแบบฟอร์มขอเข้าใช้งาน
+    4. ระบบ Generate Reference ID
+    5. ส่งคำขอไปยังผู้อนุมัติ
+    6. ผู้อนุมัติตรวจสอบและอนุมัติ/ปฏิเสธ
+    7. แจ้งผลการอนุมัติ
+    8. บันทึกประวัติการเข้าใช้งาน
+    9. ส่งข้อมูลไปยัง Dashboard Real-time
+
+4.2 Workflow การจัดการอุปกรณ์
+
+    1. สำรวจข้อมูลอุปกรณ์
+    2. นำเข้าข้อมูลผ่านระบบ/API
+    3. จัดทำ Rack Layout
+    4. บันทึกข้อมูลเทคนิค
+    5. เชื่อมโยงกับ Fix Asset System
+    6. บันทึกประวัติบำรุงรักษา
+    7. แสดงสถานะ Real-time
+
+5. การเชื่อมต่อ API (API Integration)
+5.1 API ที่ระบบต้องเรียกใช้ (Inbound)
+    - SSO Authentication API
+    - ERP HR System API
+    - ERP Fix Asset System API
+    - Network Monitoring System API
+5.2 API ที่ระบบต้องเปิดให้บริการ (Outbound)
+    - DCMS Data Export API
+    - Real-time Status API
+    - Report Data API
+    - Equipment Information API
+
+6. ออกแบบฐานข้อมูล (Database Design)
+    6.1 Core Entities
+    -- ผู้ใช้งาน
+    CREATE TABLE users (
+        id UUID PRIMARY KEY,
+        employee_id VARCHAR(50),
+        username VARCHAR(100),
+        email VARCHAR(255),
+        department VARCHAR(200),
+        role VARCHAR(50),
+        created_at TIMESTAMP,
+        updated_at TIMESTAMP
+    );
+    -- คำขอเข้าใช้งาน
+    CREATE TABLE access_requests (
+        id UUID PRIMARY KEY,
+        reference_id VARCHAR(50) UNIQUE,
+        user_id UUID REFERENCES users(id),
+        purpose TEXT,
+        data_center_location VARCHAR(100),
+        entry_date DATE,
+        entry_time TIME,
+        exit_time TIME,
+        status VARCHAR(20),
+        approved_by UUID,
+        approved_at TIMESTAMP,
+        created_at TIMESTAMP
+    );
+    -- อุปกรณ์
+    CREATE TABLE equipment (
+        id UUID PRIMARY KEY,
+        asset_number VARCHAR(100),
+        serial_number VARCHAR(100),
+        equipment_type VARCHAR(50),
+        rack_id VARCHAR(50),
+        u_position INTEGER,
+        ip_address INET,
+        mac_address MACADDR,
+        status VARCHAR(20),
+        warranty_expiry DATE,
+        vendor VARCHAR(200),
+        created_at TIMESTAMP
+    );
+    -- รายงาน
+    CREATE TABLE reports (
+        id UUID PRIMARY KEY,
+        report_type VARCHAR(50),
+        period_start DATE,
+        period_end DATE,
+        data JSONB,
+        generated_at TIMESTAMP,
+        generated_by UUID
+    );
+
+
+7. หน้าจอระบบ (UI/UX Overview)
+7.1 Main Modules
+    - Dashboard: แสดงภาพรวมแบบ Real-time
+    - Access Request: จัดการคำขอเข้าใช้งาน
+    - Equipment Management: จัดการข้อมูลอุปกรณ์
+    - Rack Layout: แสดงผัง Rack
+    - Reports: สร้างและดูรายงาน
+    - System Administration: จัดการระบบ
+
+8. แผนการทำงานและทรัพยากร (Project Plan & Resources)
+8.1 Project Timeline (180 วัน)
+    Phase 1: Setup & Foundation (30 วัน)
+    Phase 2: Core Modules (60 วัน)
+    Phase 3: Integration & Testing (45 วัน)
+    Phase 4: Deployment & Training (30 วัน)
+    Phase 5: Maintenance Handover (15 วัน)
+8.2 Resource Requirements
+    Backend Lead: 1 คน
+    Backend Developer: 2 คน
+    Frontend Developer: 2 คน
+    Database Engineer: 1 คน
+    DevOps Engineer: 1 คน
+    Project Manager: 1 คน
+
+ส่วนที่ 2: การออกแบบระบบ API Backend (NestJS)
+
+1. บทนำระบบ Backend
+ ระบบ Backend พัฒนาด้วย NestJS Framework ที่รองรับทั้ง Monolith และ Microservices Architecture โดยออกแบบให้มีประสิทธิภาพ รองรับการขยายตัว และเชื่อมต่อกับระบบต่างๆ ของ สทอภ.
+2. นิยามทางเทคนิค
+- NestJS: Progressive Node.js framework
+- JWT: JSON Web Token สำหรับ Authentication
+- M: Object-Relational Mapper
+- Redis: In-memory data structure store
+- Docker: Containerization platform
+3. โครงสร้างโปรเจค NestJS
+            src/
+            ├── main.ts
+            ├── app.module.ts
+            ├── common/
+            │   ├── decorators/
+            │   ├── filters/
+            │   ├── guards/
+            │   ├── interceptors/
+            │   └── pipes/
+            ├── config/
+            ├── modules/
+            │   ├── auth/
+            │   ├── access-request/
+            │   ├── equipment/
+            │   ├── rack/
+            │   ├── report/
+            │   └── dashboard/
+            ├── shared/
+            │   ├── database/
+            │   ├── cache/
+            │   └── services/
+            └── utils/
+
+4. API Design Specification
+4.1 Authentication Module
+        // auth.controller.ts
+        @Controller('auth')
+            export class AuthController {
+            @Post('sso-login')
+            async ssoLogin(@Body() ssoData: SSOLoginDto) {
+                // เชื่อมต่อกับ SSO ของ สทอภ.
+            }
+            
+            @Post('refresh-token')
+            async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
+                // Refresh JWT Token
+            }
+        }
+4.2 Access Request Module
+// access-request.controller.ts
+@Controller('access-requests')
+export class AccessRequestController {
+  @Post()
+  @UseGuards(JwtAuthGuard)
+  async createAccessRequest(@Body() createDto: CreateAccessRequestDto) {
+    // สร้างคำขอเข้าใช้งาน
+  }
+  
+  @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  async getRequest(@Param('id') id: string) {
+    // ดึงข้อมูลคำขอ
+  }
+  
+  @Patch(':id/approve')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'approver')
+  async approveRequest(@Param('id') id: string) {
+    // อนุมัติคำขอ
+  }
+}
+
+5. Workflow Design
+5.1 Access Request Workflow
+
+// access-request.service.ts
+async function createAccessRequest(createDto: CreateAccessRequestDto) {
+  // 1. Validate input
+  await this.validateRequest(createDto);
+  
+  // 2. Generate Reference ID
+  const referenceId = this.generateReferenceId();
+  
+  // 3. Check equipment list
+  await this.validateEquipment(createDto.equipment);
+  
+  // 4. Save to database
+  const request = await this.repository.save({
+    ...createDto,
+    referenceId,
+    status: 'pending'
+  });
+  
+  // 5. Send notification to approver
+  await this.notificationService.notifyApprover(request);
+  
+  // 6. Return response
+  return request;
+}
+
+6. TASK LIST Template
+Backend Development Tasks
+    [ ] Project Setup & Configuration
+    [ ] Database Schema Design
+    [ ] Authentication Module
+    [ ] Access Request Module
+    [ ] Equipment Management Module
+    [ ] Rack Layout Module
+    [ ] Reporting Module
+    [ ] API Documentation (Swagger)
+    [ ] Unit Tests
+    [ ] Integration Tests
+    [ ] Performance Testing
+    [ ] Security Audit
+7. CHECKLIST Template
+Development Checklist
+    ✓ Project structure following NestJS best practices
+    ✓ Environment configuration management
+    ✓ Database migration setup
+    ✓ Authentication/Authorization implemented
+    ✓ Input validation using class-validator
+    ✓ Error handling middleware
+    ✓ Logging system
+    ✓ API documentation with Swagger
+    ✓ Unit test coverage > 80%
+    ✓ Integration test for critical flows
+    ✓ Docker configuration
+    ✓ CI/CD pipeline setup
+
+8. Resource Planning (180 วัน)
+Team Composition
+    Month 1-3:
+    - Backend Lead: 1 คน (95,000/เดือน)
+    - Backend Developer: 1 คน (80,000/เดือน)
+    - Database Engineer: 1 คน (50,000/เดือน)
+    Month 4-6:
+    - Backend Developer: เพิ่ม 1 คน (80,000/เดือน)
+    - DevOps Engineer: 1 คน (70,000/เดือน)
+
+Budget Estimation
+    Backend Lead: 95,000 × 6 = 570,000 บาท
+    Backend Developers: 80,000 × 6 × 2 = 960,000 บาท
+    Database Engineer: 50,000 × 6 = 300,000 บาท
+    DevOps Engineer: 70,000 × 3 = 210,000 บาท
+    Total Labor Cost: 2,040,000 บาท
+    Infrastructure & Tools: ประมาณ 500,000 บาท
+    Total Estimated Budget: 2,540,000 บาท
+
+ส่วนที่ 3: การพัฒนาระบบ REST API
+1. Security Implementation
+        // JWT Strategy
+        @Injectable()
+        export class JwtStrategy extends PassportStrategy(Strategy) {
+        constructor(private configService: ConfigService) {
+            super({
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            ignoreExpiration: false,
+            secretOrKey: configService.get('JWT_SECRET'),
+            });
+        }
+
+        async validate(payload: any) {
+            return { userId: payload.sub, username: payload.username };
+        }
+        }
+2. Database Configuration
+    // database.module.ts
+    @Module({
+    imports: [
+        TypeOrmModule.forRootAsync({
+        imports: [ConfigModule],
+        useFactory: (configService: ConfigService) => ({
+            type: 'postgres',
+            host: configService.get('DB_HOST'),
+            port: configService.get('DB_PORT'),
+            username: configService.get('DB_USERNAME'),
+            password: configService.get('DB_PASSWORD'),
+            database: configService.get('DB_DATABASE'),
+            entities: [__dirname + '/**/*.entity{.ts,.js}'],
+            synchronize: configService.get('NODE_ENV') !== 'production',
+            logging: configService.get('NODE_ENV') === 'development',
+        }),
+        inject: [ConfigService],
+        }),
+    ],
+    })
+    export class DatabaseModule {}
+
+3. Caching Strategy with Redis
+    // cache.service.ts
+    @Injectable()
+    export class CacheService {
+    constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+
+    async getEquipmentStatus(equipmentId: string): Promise<any> {
+        const cacheKey = `equipment:${equipmentId}:status`;
+        const cached = await this.cacheManager.get(cacheKey);
+        
+        if (cached) {
+        return cached;
+        }
+        
+        const data = await this.fetchEquipmentStatus(equipmentId);
+        await this.cacheManager.set(cacheKey, data, { ttl: 300 });
+        return data;
+    }
+    }
+
+ส่วนที่ 4: การพัฒนาระบบ Frontend
+1. Architecture Options
+Option A: React + Next.js + TypeScript (Recommended)
+Advantages:
+    -Modern ecosystem
+    -Server-side rendering
+    -Type safety
+    -Rich component library
+    -Better performance
+Structure:-
+        app/
+        ├── layout.tsx
+        ├── page.tsx
+        ├── dashboard/
+        ├── access-requests/
+        ├── equipment/
+        ├── reports/
+        ├── components/
+        ├── hooks/
+        ├── services/
+        └── utils/
+
+Option B: PHP CodeIgniter 3 HMVC
+Advantages:
+    -Familiar to PHP developers
+    -Stable and mature
+    -Good for legacy integration
+    -Simpler hosting requirements
+
+2. Frontend Components Design
+2.1 Access Request Form Component
+    // AccessRequestForm.tsx
+    const AccessRequestForm: React.FC = () => {
+    const [formData, setFormData] = useState<AccessRequestFormData>({
+        purpose: '',
+        dataCenter: '',
+        entryDate: '',
+        entryTime: '',
+        exitTime: '',
+        equipment: [],
+        visitors: []
+    });
+
+    const handleSubmit = async () => {
+        // Validate form
+        // Submit to API
+        // Show confirmation
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+        <FormField
+            label="จุดประสงค์การเข้าใช้งาน"
+            type="textarea"
+            required
+        />
+        <DateTimePicker
+            label="วันที่และเวลาเข้า"
+            required
+        />
+        <EquipmentSelector
+            label="รายการอุปกรณ์"
+            multiple
+        />
+        <VisitorList
+            label="รายชื่อผู้เข้าใช้งาน"
+        />
+        <FileUpload
+            label="เอกสารประกอบ"
+            accept=".pdf,.jpg,.png"
+        />
+        <SubmitButton>
+            ส่งคำขอ
+        </SubmitButton>
+        </form>
+    );
+    };
+3. API Integration Layer    
+    // api-client.ts
+    class APIClient {
+    private axiosInstance: AxiosInstance;
+
+    constructor() {
+        this.axiosInstance = axios.create({
+        baseURL: process.env.NEXT_PUBLIC_API_URL,
+        timeout: 10000,
+        });
+
+        // Request interceptor for JWT
+        this.axiosInstance.interceptors.request.use(
+        (config) => {
+            const token = localStorage.getItem('access_token');
+            if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+            }
+            return config;
+        },
+        (error) => Promise.reject(error)
+        );
+    }
+
+    // Access Request methods
+    async createAccessRequest(data: AccessRequestData) {
+        return this.axiosInstance.post('/access-requests', data);
+    }
+
+    async getAccessRequests(params: RequestParams) {
+        return this.axiosInstance.get('/access-requests', { params });
+    }
+
+    // Equipment methods
+    async getEquipmentList(params: EquipmentParams) {
+        return this.axiosInstance.get('/equipment', { params });
+    }
+
+    async updateEquipmentStatus(id: string, status: string) {
+        return this.axiosInstance.patch(`/equipment/${id}/status`, { status });
+    }
+    }
+
+4. Real-time Dashboard Implementation
+    // DashboardComponent.tsx
+    const DashboardComponent: React.FC = () => {
+    const [stats, setStats] = useState<DashboardStats>(null);
+    const [realtimeData, setRealtimeData] = useState<RealtimeData[]>([]);
+
+    // Polling for real-time updates
+    useEffect(() => {
+        const interval = setInterval(async () => {
+        const response = await apiClient.getRealtimeStats();
+        setRealtimeData(response.data);
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div className="dashboard-grid">
+        <StatCard
+            title="จำนวนผู้ใช้งานปัจจุบัน"
+            value={realtimeData.currentUsers}
+            icon="users"
+        />
+        <StatCard
+            title="คำขอรออนุมัติ"
+            value={stats.pendingRequests}
+            icon="clock"
+        />
+        <StatCard
+            title="อุปกรณ์ออนไลน์"
+            value={stats.onlineEquipment}
+            icon="server"
+        />
+        <ActivityFeed
+            activities={realtimeData.activities}
+        />
+        <RackLayoutVisualization
+            data={realtimeData.rackStatus}
+        />
+        </div>
+    );
+    };
+
+ 5. Report Generation System
+    // ReportService.ts
+    class ReportService {
+    async generateAccessReport(params: ReportParams): Promise<ReportData> {
+        // 1. Query data based on parameters
+        const data = await this.queryAccessData(params);
+        
+        // 2. Transform data for reporting
+        const transformed = this.transformReportData(data);
+        
+        // 3. Generate PDF/Excel
+        if (params.format === 'pdf') {
+        return this.generatePDF(transformed);
+        } else if (params.format === 'excel') {
+        return this.generateExcel(transformed);
+        } else {
+        return this.generateCSV(transformed);
+        }
+    }
+
+    private async generatePDF(data: ReportData): Promise<Buffer> {
+        // Use PDF generation library
+        const doc = new PDFDocument();
+        // Add content to PDF
+        return doc;
+    }
+    }
+
+สรุป (Conclusion)
+ระบบ DCMS ที่ออกแบบมานี้สามารถตอบสนองความต้องการทั้งหมดที่ระบุในข้อกำหนด โดยมีลักษณะเด่นดังนี้:
+
+    1.ความยืดหยุ่น: รองรับทั้ง Monolith และ Microservices
+    2.ความปลอดภัย: ใช้ JWT และเชื่อมต่อกับ SSO ของ สทอภ.
+    3.การเชื่อมต่อ: สามารถเชื่อมต่อกับระบบ ERP ต่างๆ
+    4.ประสิทธิภาพ: ใช้ Redis Cache และ Database Optimization
+    5.การรายงาน: มีระบบรายงานที่ครบถ้วน
+    6.การดูแลระบบ: มี Monitoring และ Logging ที่ดี
+    7.ระบบนี้จะช่วยให้ สทอภ. สามารถบริหารจัดการศูนย์ข้อมูลได้อย่างมีประสิทธิภาพ ลดความผิดพลาด และเพิ่มความปลอดภัยในการเข้าถึงพื้นที่ศูนย์ข้อมูล

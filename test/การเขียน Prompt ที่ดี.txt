@@ -1,0 +1,157 @@
+สั่งาน AI 
+
+Songsak (Tom) SongchomSongsak
+
+การเขียน Prompt ที่ดี
+
+1.ความชัดเจน (Clarity)
+2.การกำหนดบริบท (Context)
+3.การระบุรูปแบบผลลัพธ์ (Format Requirements)
+4.การให้คำแนะนำทีละขั้นตอน (Step-by-step Instructions)
+5.หลีกเลี่ยงความกำกวม (Avoid Ambiguity)
+
+ส่วนประกอบของ Prompt
+
+-คุณเป็น [บทบาท | Role] 
+-ต้องการ [ทำอะไร | Task + Context]
+-[เงื่อนไข(ถ้ามี) | Condition]
+-ในโทนและสไตล์ [สไตล์ใด | Tone Style]
+-โดยแสดงผลเป็น [รูปแบบ | Format]
+-[ตัวอย่าง (ถ้ามี) ]
+
+ตัวอย่างการเขียน Prompt
+- Prompt
+
+
+
+
+ต้องการวาดรูปห้อง data center ตามรูป  file cmon.png
+
+รูปร่างและขนาดห้อง
+
+สี่เหลี่ยมผืนผ้า/สี่เหลี่ยมจัตุรัส/รูปทรงอื่น?
+สี่เหลี่ยมผืนผ้า
+ 
+องค์ประกอบภายใน
+
+ตู้ Rack: กี่ตู้? เรียงกันอย่างไร?  4
+
+พื้นที่ทำงาน: มีโต๊ะ admin หรือไม่?   มี
+
+เครื่องปรับอากาศ: ประเภทใด (In-row, CRAC, Precision AC)? In-ro
+
+UPS/แบตเตอรี่: ตู้แยกหรืออยู่ในตู้ Rack? ตู้แยก
+
+ระบบดับเพลิง: มีอุปกรณ์ใด? มีระบบดับเพลิง แบบ ไม่เป็นอัตราบต่อมนุษย์
+
+ผนัง/ประตู: ตำแหน่งประตู ทางหนีไฟ?  ขวา
+
+สายสัญญาณ: Cable tray/Overhead/ใต้ raised floor?    Overhead
+
+Raised floor: มีหรือไม่? สูงเท่าไหร่? มี  สูง  2 เมตร
+
+การจัดวาง
+
+Hot aisle/Cold aisle configuration?
+
+ทิศทางการไหลของลมร้อน-เย็น  : วนขวา
+
+รายละเอียดเพิ่มเติม
+
+โลโก้/ชื่อบริษัท  icmon
+
+สัญลักษณ์พิเศษ  icmon
+
+
+
+
+ผมได้ทำการปรับปรุงและรวบรวมข้อมูลที่คุณให้มา เพื่อสร้างเป็น **Prompt (คำสั่ง)** ภาษาอังกฤษสำหรับนำไปใช้กับ AI (เช่น Midjourney, DALL-E 3 หรือ Stable Diffusion) ให้ได้ภาพตรงตามความต้องการที่สุดครับ
+
+ข้อสังเกตเล็กน้อย: **Raised Floor สูง 2 เมตร** นั้นถือว่าสูงมากในทางปฏิบัติ (ปกติสูงประมาณ 30-60 ซม.) แต่ผมจะใส่คำสั่งให้เห็นโครงสร้างพื้นยกที่ชัดเจนและดูมีความลึกตามที่คุณระบุครับ
+
+นี่คือ Prompt ที่ปรับปรุงแล้ว แบ่งเป็น 2 เวอร์ชั่นครับ
+
+### 1. The Precise Prompt (เน้นความถูกต้องตามโครงสร้าง)
+Prompt นี้จะเน้นใส่รายละเอียดทางวิศวกรรมที่คุณระบุมาให้ครบถ้วนครับ
+
+> **Prompt:**
+> **Isometric 3D cutaway of a rectangular Data Center room with high raised floor. The room contains exactly 4 server racks arranged in a row, alternating with In-row precision cooling units. A separate large UPS battery cabinet stands nearby. An administrator workstation desk with monitors is placed in the corner. Overhead cable trays carrying colorful wires run across the ceiling. Ceiling-mounted clean agent fire suppression nozzles. An emergency exit door is located on the right wall. Holographic blue and red arrows illustrate airflow circulating in a clockwise direction. The text "icmon" is displayed on the wall as a 3D logo. Clean aesthetic, soft studio lighting, Octane render, 4k resolution, engineering visualization style --ar 16:9**
+
+***
+
+### 2. The Creative/Futuristic Prompt (เน้นความสวยงามแบบรูปต้นฉบับ)
+Prompt นี้จะเน้นความสวยงาม แสงเงา และ UI แบบรูปตัวอย่างที่คุณส่งมา (A2.jpg) แต่ปรับองค์ประกอบให้ตรงกับสเปคของคุณ
+
+> **Prompt:**
+> **Isometric 3D render of a modern Data Center "ICMON", rectangular room layout. Center stage features 4 server racks with LED lights, integrated with In-row cooling systems. A distinct heavy-duty UPS battery unit. A high-tech admin desk with holographic screens. Yellow and blue overhead cable trays suspended from ceiling. Visible raised floor tiles with deep plenum space. Fire suppression system piping visible. Door located on the right side. Floating HUD interface overlay showing "Clockwise Airflow" paths. Branding logo "ICMON" on the back wall. Minimalist design, pastel and dark grey tones, soft shadows, high fidelity, unreal engine 5 render --ar 16:9**
+
+***
+
+### คำอธิบายการปรับแก้ (Prompt Breakdown)
+
+ผมได้แปลงข้อมูลของคุณเป็นคีย์เวิร์ดสำหรับ AI ดังนี้ครับ:
+
+1.  **รูปทรงและขนาด:**
+    *   ใช้คำว่า `Rectangular room layout` (ผังห้องสี่เหลี่ยมผืนผ้า)
+    *   ใช้คำว่า `Isometric 3D cutaway` (ภาพตัดขวาง 3 มิติ เพื่อให้เห็นภายในชัดเจน)
+2.  **องค์ประกอบภายใน:**
+    *   **ตู้ Rack 4 ตู้:** `exactly 4 server racks` (ระบุจำนวนชัดเจน)
+    *   **แอร์ In-row:** `integrated In-row precision cooling units` (แอร์แบบแทรกแถว)
+    *   **UPS แยก:** `separate standalone UPS battery cabinet` (ตู้แบตเตอรี่แยกออกมา ไม่รวมใน rack)
+    *   **โต๊ะ Admin:** `administrator workstation desk`
+    *   **ดับเพลิง:** `clean agent fire suppression nozzles` (หัวฉีดสารสะอาด สำหรับอุปกรณ์อิเล็กทรอนิกส์)
+3.  **โครงสร้าง:**
+    *   **ประตูขวา:** `Door located on the right wall`
+    *   **พื้นยก 2 เมตร:** `High raised floor with deep plenum` (เน้นว่าพื้นยกสูงและมีช่องว่างด้านล่างลึก)
+    *   **สายสัญญาณ:** `Overhead cable trays` (รางสายไฟแขวนเพดาน)
+4.  **การไหลเวียนอากาศ:**
+    *   `Holographic arrows illustrate airflow circulating in a clockwise direction` (ใช้ลูกศรโฮโลแกรมแสดงทิศทางลมวนขวา)
+5.  **แบรนด์:**
+    *   `"ICMON" logo on wall` (สั่งให้เขียนชื่อแบรนด์บนผนัง)
+
+**ข้อแนะนำเพิ่มเติม:**
+*   **ตัวหนังสือ (ICMON):** AI บางรุ่นอาจจะสะกดคำผิดบ้าง อาจต้อง Gen หลายครั้ง หรือนำมาแก้ตัวอักษรใน Photoshop นิดหน่อยครับ
+*   **Raised Floor 2 เมตร:** ในภาพ Isometric อาจจะดูเหมือนห้องลอยอยู่บนกล่องสูงๆ ซึ่งเป็นเรื่องปกติของมุมมองนี้ครับ
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/57944704/307b0d69-b663-4a8d-877c-da48b39a56aa/A2.jpg)
+
+
+
+
+ภาพที่คุณส่งมาคือ "ภาพคอนเซปต์แดชบอร์ดจัดการศูนย์ข้อมูล (Data Center Infrastructure Management Dashboard)" ในรูปแบบ 3 มิติครับ ภาพลักษณะนี้เป็นงานออกแบบที่ผสมผสานระหว่างงาน 3D Modeling และ UI Design ซึ่งเป็นที่นิยมมากในการทำ Presentation หรือหน้าปกเว็บไซต์สาย Tech ครับ
+
+ขออธิบายรายละเอียดตามหัวข้อที่คุณต้องการดังนี้ครับ:
+
+1. องค์ประกอบอย่างละเอียด (Detailed Elements)
+จากภาพ สามารถแยกองค์ประกอบหลักได้เป็น 3 ส่วนครับ:
+
+สภาพแวดล้อม 3 มิติ (3D Environment):
+
+Server Racks (ตู้เซิร์ฟเวอร์): กลุ่มตู้สีดำและขาววางเรียงกันเป็นแถว เป็นจุดเด่นกลางภาพ แสดงถึงฮาร์ดแวร์หลัก
+
+Overhead Cable Trays (รางสายไฟด้านบน): รางแขวนที่มีสายไฟหลากสี (เหลือง/แดง/น้ำเงิน) พาดผ่านด้านบน เพิ่มความสมจริงในเชิงวิศวกรรม (Engineering Detail)
+
+Room Structure (โครงสร้างห้อง): พื้นห้องปูกระเบื้องสีเทา ผนังเรียบ และโคมไฟเพดานทรงยาว ให้แสงเงาแบบ Soft Lighting
+
+ส่วนติดต่อผู้ใช้งาน (UI / HUD Overlay):
+
+Floating Widgets (ป้ายข้อมูลลอยตัว): กรอบสี่เหลี่ยมโปร่งแสงที่มีเส้นสีฟ้า (Cyan) โยงไปยังตู้เซิร์ฟเวอร์ แสดงค่าต่างๆ เช่น อุณหภูมิ (29.7 C), สถานะการทำงาน เป็นสไตล์ Futuristic HUD
+
+Sidebar (แถบเมนูด้านขวา): แผงควบคุมสีเข้ม แสดงเมนู "Cable Management", "System Logs" และส่วน "SYSTEM STATUS" ที่มีไฟสีเขียวบอกสถานะ (Temperature, Air Unit, UPS)
+
+แบรนด์และข้อความ (Branding & Text):
+
+มีโลโก้ "ICMON" ติดที่ผนัง และข้อความหัวเรื่องมุมซ้ายบนว่า "Data Center Infrastructure Management" (สังเกตว่า AI มักจะสะกดคำผิดเล็กน้อย เช่น Infresturcture ซึ่งเป็นปกติของภาพ AI)
+
+2. รูปแบบการสร้างภาพด้วย AI (AI Generation Style)
+รูปแบบงานศิลปะนี้เรียกว่า "Isometric 3D UI Dashboard" หรือ "Digital Twin Concept" ครับ
+
+Isometric View (มุมมองไอโซเมตริก): เป็นหัวใจสำคัญของภาพนี้ คือมุมมอง 3 มิติแบบขนาน (ไม่ตีบตามระยะทาง) ทำให้เห็นรายละเอียดของห้องและวัตถุได้ชัดเจนทุกส่วน นิยมใช้ในงานออกแบบเกมแนววางแผนหรือแผนผังระบบ
+
+Low Poly / Clean Render: พื้นผิวของวัตถุจะดูเรียบเนียน (Smooth) เหมือนพลาสติกหรือโมเดล 3D ที่เรนเดอร์ด้วยโปรแกรมอย่าง Blender หรือ Cinema 4D โดยใช้ตัวเรนเดอร์แบบ Octane Render ที่ให้แสงเงาสวยงาม นุ่มนวล ดูสะอาดตา (Clean Aesthetic)
+
+Skeuomorphic UI: การนำ UI (User Interface) มาผสมลงในฉาก 3 มิติเสมือนจริง ให้ความรู้สึกเหมือนเรากำลังมองผ่านแว่น AR หรือหน้าจอควบคุมล้ำยุค
+
+3. รูปแบบคำสั่ง Prompt (Prompt Engineering)
+เพื่อให้คุณนำไปประยุกต์ใช้กับห้องแบบอื่นๆ (เช่น โรงงาน, ห้องครัว, หรือโกดัง) ผมขอแนะนำโครงสร้าง Prompt และตัวอย่างดังนี้ครับ:
+

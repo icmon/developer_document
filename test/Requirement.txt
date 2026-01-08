@@ -1,0 +1,75 @@
+Requirement:
+Technical Skills: 
+- Strong proficiency in Python with experience building production-grade
+APIs using FastAPI or similar frameworks.
+- Deep understanding of backend architecture (microservices, async design, event-driven systems).
+- Hands-on experience with AI/ML model serving (NLP, Vision, multimodal), including optimization and model lifecycle management.
+- Cloud & DevOps skills: Docker, Kubernetes, CI/CD pipelines, logging/monitoring tools.
+
+- Database expertise: SQL/NoSQL, vector databases, caching layers.
+API Security & System Reliability: JWT/OAuth2, rate limiting, load balancing, performance tuning.
+- Experience with AI pipeline components: RAG, embeddings, OCR, image preprocessing, inference optimization.
+- Strong understanding of system observability: metrics, tracing, error handling, latency/cost monitoring.
+- Familiarity with distributed computing concepts: concurrency, parallel processing, message queues.
+
+Soft Skills:
+- Strong analytical and problem-solving mindset, able to translate complex AI/ML concepts into stable backend solutions.
+- Excellent communication skills, able to collaborate effectively with Product, ML, and Engineering teams.
+
+- Ownership mentality: proactive, accountable, and comfortable making architectural decisions.
+- Adaptability & fast learning in rapidly evolving AI technologies and production challenges.
+- Attention to detail with strong focus on reliability, quality, and system robustness.
+Team collaboration & cross-functional understanding, especially in AI product development.
+- User-centric & business-oriented thinking, ensuring backend solutions support real product needs.
+
+
+Nice to have: 
+
+
+• Experience with large-scale AI systems (high-throughput inference, multi-GPU serving, distributed model hosting).
+• Knowledge of LLM fine-tuning, prompt engineering, or custom model training workflows.
+• Familiarity with RAG architectures, vector search optimization, and knowledge-base design.
+• Experience with serverless AI architectures (Cloud Run, Lambda, Vertex AI, Bedrock).
+• Hands-on experience with Vision frameworks (OpenCV, Detectron2, YOLO, Tesseract).
+• Experience with real-time streaming pipelines (Kafka, Pub/Sub, Kinesis).
+• Contribution to open-source projects, technical blogs, or AI community activities.
+
+
+Responsibilities:
+Backend Engineer (AI Solutions)
+
+Key Responsibilities:
+1. System Architecture
+• Design scalable, reliable backend and AI service architectures.
+• Define tech stack, APIs, and integration patterns for AI workloads.
+
+2. Backend Development (Python/FastAPI)
+• Build high-performance APIs for chatbot, vision, and AI inference services.
+• Implement authentication, API versioning, and automated testing.
+
+3. AI Model Serving
+• Deploy and optimize NLP/Vision models for production.
+• Manage model versions, A/B testing, and performance tuning.
+
+4. AI Monitoring & Observability
+• Build dashboards for latency, cost, model drift, and error monitoring.
+• Use Grafana or similar tools for end-to-end visibility.
+
+5. Chatbot & Orchestration Backend
+• Implement conversation memory, prompt orchestration, RAG pipelines, and safety guardrails.
+
+6. Vision Application Backend
+• Develop pipelines for OCR, detection, classification, and other image-based inference tasks.
+
+7. Data & Pipeline Integration
+• Work with data pipelines, embeddings generation, and vector databases.
+
+8. DevOps & Deployment
+• Implement CI/CD, containerized deployments, and environment management.
+
+9. Collaboration
+• Review code, and drive engineering best practices.
+• Work with product/ML teams to deliver reliable AI products.
+
+10. Security & Compliance
+• Ensure secure API design, secrets management, and compliance for sensitive data.

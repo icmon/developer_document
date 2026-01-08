@@ -1,0 +1,275 @@
+Node.js Function ที่มีโครงสร้างต่างๆ ครบถ้วน
+javascript
+// ตัวอย่างข้อมูลสำหรับการทำงาน
+const users = [
+    { id: 1, name: 'Alice', role: 'admin', age: 30, active: true },
+    { id: 2, name: 'Bob', role: 'user', age: 25, active: true },
+    { id: 3, name: 'Carol', role: 'moderator', age: 28, active: false },
+    { id: 4, name: 'David', role: 'user', age: 35, active: true },
+    { id: 5, name: 'Eve', role: 'admin', age: 22, active: true }
+];
+
+// ฟังก์ชันจำลองการเรียก API
+const simulateAPI = (data, delay, shouldFail = false) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (shouldFail) {
+                reject(new Error(`API failed for: ${data}`));
+            } else {
+                resolve({ data, timestamp: new Date().toISOString() });
+            }
+        }, delay);
+    });
+};
+
+// ฟังก์ชันหลักที่มีโครงสร้างต่างๆ ครบถ้วน
+async function processUserData(role, minAge, requireActive = true) {
+    console.log('=== เริ่มต้นการประมวลผลข้อมูลผู้ใช้ ===\n');
+    
+    // 1. CONDITION (AND/OR)
+    // ใช้ AND condition ในการกรองข้อมูล
+    console.log('1. ใช้ AND condition ในการกรองข้อมูล:');
+    const filteredUsers = users.filter(user => {
+        // ใช้ AND operator (&&)
+        const condition1 = role ? user.role === role : true;
+        const condition2 = minAge ? user.age >= minAge : true;
+        const condition3 = requireActive ? user.active === true : true;
+        
+        return condition1 && condition2 && condition3;
+    });
+    
+    console.log(`   จำนวนผู้ใช้หลังกรอง: ${filteredUsers.length} คน\n`);
+    
+    if (filteredUsers.length === 0) {
+        console.log('   ไม่พบข้อมูลที่ตรงเงื่อนไข\n');
+        return [];
+    }
+    
+    // 2. LOOP (for, for...of, forEach, while)
+    console.log('2. ใช้ LOOP ต่างๆ ในการประมวลผล:');
+    
+    // 2.1 for loop
+    console.log('   2.1 for loop - แสดงข้อมูลพื้นฐาน:');
+    for (let i = 0; i < filteredUsers.length; i++) {
+        console.log(`      User ${i + 1}: ${filteredUsers[i].name} (${filteredUsers[i].age} ปี)`);
+    }
+    console.log();
+    
+    // 2.2 for...of loop
+    console.log('   2.2 for...of loop - คำนวณอายุเฉลี่ย:');
+    let totalAge = 0;
+    for (const user of filteredUsers) {
+        totalAge += user.age;
+    }
+    const averageAge = totalAge / filteredUsers.length;
+    console.log(`      อายุเฉลี่ย: ${averageAge.toFixed(1)} ปี\n`);
+    
+    // 3. SWITCH CASE
+    console.log('3. ใช้ SWITCH CASE จัดหมวดหมู่ตามบทบาท:');
+    const roleCounts = { admin: 0, user: 0, moderator: 0, other: 0 };
+    
+    filteredUsers.forEach(user => {
+        // Switch case
+        switch (user.role) {
+            case 'admin':
+                roleCounts.admin++;
+                break;
+            case 'user':
+                roleCounts.user++;
+                break;
+            case 'moderator':
+                roleCounts.moderator++;
+                break;
+            default:
+                roleCounts.other++;
+                break;
+        }
+    });
+    
+    // แสดงผลนับตามบทบาท
+    for (const [roleName, count] of Object.entries(roleCounts)) {
+        if (count > 0) {
+            console.log(`      ${roleName}: ${count} คน`);
+        }
+    }
+    console.log();
+    
+    // 4. TRY-CATCH และ ASYNC/AWAIT
+    console.log('4. ใช้ TRY-CATCH และ ASYNC/AWAIT เรียก API:');
+    const apiResults = [];
+    
+    // while loop ร่วมกับ try-catch
+    let index = 0;
+    while (index < Math.min(filteredUsers.length, 3)) { // จำลองแค่ 3 คน
+        const user = filteredUsers[index];
+        
+        try {
+            // ASYNC/AWAIT
+            console.log(`   กำลังเรียก API สำหรับ: ${user.name}...`);
+            
+            // จำลองบางครั้ง API ล้มเหลว
+            const shouldFail = user.name === 'Bob'; // Bob จะทำให้ API ล้มเหลว
+            const apiResponse = await simulateAPI(
+                `${user.name} (${user.role})`,
+                500, // delay 500ms
+                shouldFail
+            );
+            
+            apiResults.push({
+                user: user.name,
+                success: true,
+                data: apiResponse
+            });
+            
+            console.log(`      ✅ สำเร็จ: ${apiResponse.data} (${apiResponse.timestamp})`);
+            
+        } catch (error) {
+            // CATCH block
+            apiResults.push({
+                user: user.name,
+                success: false,
+                error: error.message
+            });
+            
+            console.log(`      ❌ ล้มเหลว: ${error.message}`);
+            
+        } finally {
+            // FINALLY block (ทำงานเสมอ)
+            console.log(`      --- จัดการข้อมูลสำหรับ ${user.name} เสร็จสิ้น ---\n`);
+        }
+        
+        index++; // เพิ่ม index สำหรับ while loop
+    }
+    
+    // 5. DO-WHILE LOOP (ตัวอย่างเพิ่มเติม)
+    console.log('5. ใช้ DO-WHILE LOOP:');
+    let counter = 0;
+    const maxRetries = 3;
+    
+    do {
+        counter++;
+        console.log(`   พยายามครั้งที่ ${counter}...`);
+        
+        if (counter >= maxRetries) {
+            console.log('   ถึงจำนวนครั้งสูงสุดแล้ว\n');
+            break; // break statement
+        }
+        
+    } while (counter < maxRetries);
+    
+    // สรุปผล
+    console.log('=== สรุปผลการประมวลผล ===');
+    console.log(`- พบผู้ใช้ทั้งหมดที่ตรงเงื่อนไข: ${filteredUsers.length} คน`);
+    console.log(`- เรียก API สำเร็จ: ${apiResults.filter(r => r.success).length} คน`);
+    console.log(`- เรียก API ล้มเหลว: ${apiResults.filter(r => !r.success).length} คน`);
+    
+    // ส่งคืนผลลัพธ์
+    return {
+        filteredUsers,
+        statistics: {
+            total: filteredUsers.length,
+            averageAge,
+            roleCounts
+        },
+        apiResults
+    };
+}
+
+// ตัวอย่างการเรียกใช้งานฟังก์ชัน
+async function main() {
+    console.log('='.repeat(50));
+    
+    try {
+        const result = await processUserData('admin', 25, true);
+        
+        console.log('\n✅ การประมวลผลเสร็จสมบูรณ์!');
+        console.log('='.repeat(50));
+        
+    } catch (error) {
+        console.error('❌ เกิดข้อผิดพลาดในการประมวลผล:', error.message);
+    }
+}
+
+// เรียกใช้งาน
+main();
+
+// ฟังก์ชันตัวอย่างอื่นๆ
+function exampleWithNestedStructures() {
+    console.log('\n\n=== ตัวอย่างฟังก์ชันที่มีโครงสร้างซ้อนกัน ===');
+    
+    // Nested conditions
+    const evaluateUser = (user) => {
+        if (user.active) {
+            switch (user.role) {
+                case 'admin':
+                    return 'Administrator';
+                case 'moderator':
+                    return 'Moderator';
+                default:
+                    return 'Regular User';
+            }
+        } else {
+            return 'Inactive User';
+        }
+    };
+    
+    // Loop with continue
+    console.log('ตรวจสอบสถานะผู้ใช้:');
+    for (const user of users) {
+        if (user.age < 25) continue; // continue statement
+        
+        const status = evaluateUser(user);
+        console.log(`  ${user.name}: ${status}`);
+    }
+}
+
+// เรียกตัวอย่างเพิ่มเติม
+setTimeout(exampleWithNestedStructures, 1000);
+โครงสร้างที่ครอบคลุมในโค้ดนี้:
+CONDITION (AND/OR):
+
+ใช้ && (AND) ในกรองข้อมูล
+
+ใช้ conditional operator (? :)
+
+LOOP:
+
+for loop
+
+for...of loop
+
+while loop
+
+do...while loop
+
+forEach method
+
+CASE:
+
+switch...case statement
+
+มี break และ default case
+
+TRY-CATCH:
+
+try...catch...finally
+
+จัดการกับ asynchronous errors
+
+ASYNC/AWAIT:
+
+async function
+
+await สำหรับ asynchronous operations
+
+Promise handling
+
+โครงสร้างอื่นๆ:
+
+if...else
+
+break และ continue
+
+Nested structures
+
+Arrow functions
