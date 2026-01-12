@@ -1,0 +1,73 @@
+ผมต้องการสร้าง ระบบ notification  system โดยใช้
+
+NustJS framwork By Node JS
+
+12. การทำงานของระบบทั้งหมด
+
+
+1.type orm
+2.database postgress sql
+3.socket.io
+4.mqtt
+5.redis
+
+1.ออกแบบ ระบบ notification data flow 
+2.ออกแบบ table database postgress sql แยก ทุก ค่าที่จำเป็น
+3.ออกแบบ Quit ใช่้ socket.io / mqtt / redis
+4.ออกแบบ หน้ารายงาน
+5.ออกแบบ ระบบตั้งค้า notification
+
+notification  alarm
+
+   1.ชื่อ Device 
+   2.ข้อมูล Device เช่น  humidity  56 %
+   3.วันเวลา
+   4.สถานะ เช่น  1.Normal  2.Worming 3.Recovery Worming  3.Alarm    4.Recovery Alarm
+   5.notification log  เก็บเวลา 
+   6.นำเวลาแจ่งเตียน ล่าสุด มา เทียเวลาปจุบัน เกิน ค่าที่กำหนดไหม เช่น 10 นาที  1.Normal  หากยัง มีสถานะ  2.Worming 3.Recovery Worming  3.Alarm    4.Recovery Alarm  ให้เจ้งเตียo ซ้ำทุก  10 นาที  หาก  Normal  ให้แเจ้งเตียน หยุด  สถานะ Normal แล้วหยุด แเจ้งเตียน
+   7.หาก สถานะ 1.Normal ไม่มีการ  แเจ้งเตียน
+   8.เก็นประวัติการ แเจ้งเตียน
+   9.กำหนด ค่าการแจ้งเตียชนแต่ละช่วง  1.Normal  2.Worming 3.Recovery Worming  3.Alarm    4.Recovery Alarm
+
+ช่องทาง การ ให้เลืกได้มากว่า 1 ช่องทาง โดยมี รูปแบบดังนี้
+
+1.Line notification
+2.discord notification
+3.telegram notification
+4.sms  notification
+5.AI CHERT BOT  notification
+6.สร้าง entities  type orm
+7.สร้าง modules rest api  
+8.สร้าง level notification
+
+1.รับข้อมูลจากเซ็นเซอร์ ผ่าน MQTT
+2.ตรวจสอบเงื่อนไข กับค่าที่ตั้งไว้
+3.อัปเดตสถานะ และบันทึกประวัติ
+4.สร้างการแจ้งเตือน ตามระดับความสำคัญ
+5.ตรวจสอบ cooldown ด้วย Redis
+6.ส่งผ่านช่องทางต่างๆ ตามการตั้งค่า
+7.บันทึกผลการส่ง และอัปเดตสถานะ
+8.แจ้งเตือนผ่าน WebSocket สำหรับ Real-time
+9.จัดการการแจ้งซ้ำ ตามสถานะและเวลาที่กำหนด
+10.เก็บข้อมูลรายงาน สำหรับ Dashboard
+
+
+เช่น
+
+ออกแบบรูป monitorring  htnl 5 CSS  ICON 
+URL : https://preview.tabler.io
+ICON : https://preview.tabler.io/icons.html
+
+การแสดง ข้อมูล 
+1.ชื่อ Device sensor
+2.ข้อมูล sensor เช่น  humidity  56 %
+3.ข้อมูล สถานะ  เช่น  1.Normal  2.Worming 3.Recovery Worming  3.Alarm    4.Recovery Alarm
+4.แสดงสัญลักษณ์ icon
+5.แสดงสี  ไฟกระพริบ 1.Normal สีเขียว 2.Worming สีส้ม 3.Alarm  สีแดง
+6.แสดง history log สถานะ
+
+1.ชื่อ Device IO เช่น  Air Conditioner
+2.ข้อมูล Device IO เช่น   Air  ON / OFF
+3.ข้อมูล สถานะการทำงาน  Device IO เช่น  ไฟกระพริบ 1.ON สีเขียว 2.OFF  สีแดง
+4.แสดงสัญลักษณ์ icon
+5.แสดง history log สถานะ
