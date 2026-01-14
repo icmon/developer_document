@@ -877,6 +877,10 @@ API Gateway (Port 8080)
 - **Database**: PostgreSQL (Port 5432)
 - **Logging**: ELK Stack (Elasticsearch:9200, Logstash:5044, Kibana:5601)
 - **Monitoring**: Grafana (Port 3000) + Prometheus (Port 9090)
+- https://prometheus.io/docs/introduction/overview/
+- ![alt text](image.png)
+- https://grafana.com/
+- ![alt text](image-2.png)
 - **Automation**: n8n (Port 5678)
 - **CI/CD**: Jenkins (Port 8181)
 
