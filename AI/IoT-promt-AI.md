@@ -1,68 +1,81 @@
-Vibe coding and Prompt Engineering: โครงสร้างและการเขียน
-1.สร้างบทนำ
-2.สร้างบทนิยาม
-3.สร้างบทหัวข้อ
-4.ออกแบบ workflow
-5.case study
-6.โคงสร้าง
-6.1 Prompt Engineering
-6.2 Vibe coding
-6.3 AI Tool
-6.2 แบบจำลองภาษาขนาดใหญ่ (LLM) เป็นโปรแกรม ปัญญาประดิษฐ์ (AI)
-7.Template 
-8.case study  IoT  monitoring fram
-8.0 ออก แบบ REST API ด้วย nust js  แบบ Microservices CRUD  + ORM  +JWT + MVC 
-8.1.node red
-8.2.mqtt
-8.3.gafana
-8.4.n8n
-8.5.python ai llm
-8.6.node ja nustjs api
-8.7.php codeingator3  hmvc  fontend  ,jqury ,css ,html
-8.8.database postgreaasl
-8.9.Redis
-8.10.influcdb
-8.11.kafka
-8.12.web socket io
-8.13 python fast api
 
- ระบบ notification  system โดยใช้
-NustJS framwork By Node JS
+การพัฒนาเว็บ
+Section 1
+
+    1.Generative AI (GenAI)
+    2.Full Stack AI Mastery
+    3.Python 
+    4.React 
+    5.FastAPI 
+    6.LangChain
+    7.Vibe Coding Class
+    8.Build Apps 
+    9.Softwares with Generative AI
+
+Section 2
+
+    1.สร้างบทนำ
+    2.สร้างบทนิยาม
+    3.สร้างบทหัวข้อ
+    4.ออกแบบ workflow
+    5.case study
+    6.โคงสร้าง
+    6.1 Prompt Engineering
+    6.2 Vibe coding
+    6.3 AI Tool
+    6.2 แบบจำลองภาษาขนาดใหญ่ (LLM) เป็นโปรแกรม ปัญญาประดิษฐ์ (AI)
+    7.Template 
+    8.case study  IoT  monitoring fram
+    8.0 ออก แบบ REST API ด้วย nust js  แบบ Microservices CRUD  + ORM  +JWT + MVC 
+    8.1.node red
+    8.2.mqtt
+    8.3.gafana
+    8.4.n8n
+    8.5.python ai llm
+    8.6.node ja nustjs api
+    8.7.php codeingator3  hmvc  fontend  ,jqury ,css ,html
+    8.8.database postgreaasl
+    8.9.Redis
+    8.10.influcdb
+    8.11.kafka
+    8.12.web socket io
+    8.13 python fast api
+
+Section 3
+
+ระบบ notification  system โดยใช้ NustJS framwork By Node JS
 
 1.type ORM 
 2.databse postgresssql
 3.redis cache
+4.IoT Notification System Architecture Documentation
 
-IoT Notification System Architecture Documentation
-1. บทนำ
-ระบบ IoT Notification System เป็นระบบแจ้งเตือนอัจฉริยะที่พัฒนาขึ้นด้วย NestJS Framework โดยมีวัตถุประสงค์หลักในการจัดการและแจ้งเตือนข้อมูลจากเซ็นเซอร์ IoT ต่างๆ ระบบนี้รองรับการแจ้งเตือนผ่านช่องทางหลากหลายรูปแบบ พร้อมทั้งมีกลไกการจัดการสถานะ การหน่วงเวลา และการบันทึกประวัติอย่างครบวงจร
+1.ระบบ IoT Notification System เป็นระบบแจ้งเตือนอัจฉริยะที่พัฒนาขึ้นด้วย NestJS Framework  
+2.FastAPI 
 
 วัตถุประสงค์
-จัดการข้อมูลจากเซ็นเซอร์ IoT ผ่าน MQTT
-ตรวจสอบเงื่อนไขและแจ้งเตือนตามระดับความสำคัญ
-รองรับช่องทางการแจ้งเตือนที่หลากหลาย
-บันทึกประวัติและสร้างรายงาน
-รองรับการทำงานแบบ Real-time
+    จัดการข้อมูลจากเซ็นเซอร์ IoT ผ่าน MQTT
+    ตรวจสอบเงื่อนไขและแจ้งเตือนตามระดับความสำคัญ
+    รองรับช่องทางการแจ้งเตือนที่หลากหลาย
+    บันทึกประวัติและสร้างรายงาน
+    รองรับการทำงานแบบ Real-time
 
-2. บทนิยาม
-2.1 คำศัพท์สำคัญ
 IoT Device: อุปกรณ์ IoT ที่เชื่อมต่อกับระบบ
+    Sensor: เซ็นเซอร์ที่วัดค่าต่างๆ เช่น อุณหภูมิ ความชื้น
+    Notification Channel: ช่องทางการแจ้งเตือน
+    Alarm Status: สถานะการแจ้งเตือน
+    Cooldown: เวลาหน่วงระหว่างการแจ้งเตือนซ้ำ
+    Recovery: สถานะเมื่อค่ากลับสู่ภาวะปกติ
 
-Sensor: เซ็นเซอร์ที่วัดค่าต่างๆ เช่น อุณหภูมิ ความชื้น
-Notification Channel: ช่องทางการแจ้งเตือน
-Alarm Status: สถานะการแจ้งเตือน
-Cooldown: เวลาหน่วงระหว่างการแจ้งเตือนซ้ำ
-Recovery: สถานะเมื่อค่ากลับสู่ภาวะปกติ
+สถานะการแจ้งเตือน
 
-2.2 สถานะการแจ้งเตือน
+    Warning (1): เตือนเบื้องต้น
+    Alarm (2): แจ้งเตือนฉุกเฉิน
+    Recovery Warning (3): ฟื้นตัวจาก Warning
+    Recovery Alarm (4): ฟื้นตัวจาก Alarm
+    Normal (5): สภาวะปกติ
 
-Warning (1): เตือนเบื้องต้น
-Alarm (2): แจ้งเตือนฉุกเฉิน
-Recovery Warning (3): ฟื้นตัวจาก Warning
-Recovery Alarm (4): ฟื้นตัวจาก Alarm
-Normal (5): สภาวะปกติ
-
-3  ส่งการแจ้งเตือน
+ส่งการแจ้งเตือน
     1. ส่งการแจ้งเตือน  email   
     2. ส่งการแจ้งเตือน line notification
     3. ส่งการแจ้งเตือน discord notification
@@ -70,8 +83,6 @@ Normal (5): สภาวะปกติ
 	5. ส่งการแจ้งเตือน  sms notification
     6. ส่งการแจ้งเตือน web dashboard notification
     7. ส่งการแจ้งเตือน AI CHART bot  fast api pythone
-
-
 
 หลักการทำงานของระบบ
 1.รับข้อมูลจากเซ็นเซอร์ ผ่าน MQTT
