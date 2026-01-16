@@ -12,7 +12,7 @@ CRUD  + ORM  +JWT + MVC
 6.ระบบ ประวัจิดกาใช้งานระบบ
 
 ระบบที่ นำมาใช้
-1.JWT
+1.Authentication
 2.validator
 3.ORM
 4.Database PostgreSQL
