@@ -1,11 +1,4 @@
-
-# Development
-
-DEV
-
-*********************
-AI Promt 
-
+ 
 ผมต้องการสร้าง ระบบ notification  system โดยใช้
 
 NustJS framwork By Node JS
