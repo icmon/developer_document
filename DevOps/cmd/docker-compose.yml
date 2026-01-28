@@ -1,0 +1,19 @@
+services:
+  app:
+    image: nginx:alpine
+    container_name: web-app
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+  db:
+    image: postgres:alpine
+    container_name: database
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  db_data:

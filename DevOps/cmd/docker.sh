@@ -6,7 +6,12 @@
 # โดย: [ใส่ชื่อผู้สร้าง]
 # วันที่: $(date)  y
 # sudo ./docker.sh
-set -e  # ออกจากสคริปต์ทันทีหากมีคำสั่งใดล้มเหลว
+#!/bin/bash
+
+# สคริปต์ติดตั้ง Docker, Python, Node.js และ Docker Compose บน Ubuntu
+# แก้ไขปัญหา docker-compose command not found
+
+set -e
 
 # ฟังก์ชันแสดงข้อความสถานะ
 print_status() {
@@ -23,78 +28,71 @@ print_error() {
     echo -e "\033[1;31m✗\033[0m $1" >&2
 }
 
-# ฟังก์ชันตรวจสอบว่าทำงานด้วยสิทธิ์ root หรือไม่
-check_root() {
-    if [[ $EUID -ne 0 ]]; then
-        print_error "สคริปต์นี้ต้องใช้สิทธิ์ root (sudo) ในการรัน"
-        exit 1
+# ฟังก์ชันติดตั้ง Docker Compose (แก้ไขใหม่)
+install_docker_compose() {
+    print_status "กำลังติดตั้ง Docker Compose..."
+    
+    # ตรวจสอบว่ามี docker-compose อยู่แล้วหรือไม่
+    if command -v docker-compose &> /dev/null; then
+        print_status "พบ Docker Compose อยู่แล้ว: $(docker-compose --version)"
+        return 0
     fi
-}
-
-# ฟังก์ชันติดตั้ง Python
-install_python() {
-    print_status "กำลังติดตั้ง Python..."
     
-    # อัพเดทแพ็คเกจลิสต์
-    apt-get update
+    # วิธีที่ 1: ดาวน์โหลด Docker Compose เวอร์ชันล่าสุด
+    print_status "กำลังดาวน์โหลด Docker Compose..."
     
-    # ติดตั้ง Python3 และ pip
-    apt-get install -y python3 python3-pip python3-venv
+    # ตรวจสอบเวอร์ชันล่าสุด
+    COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     
-    # ตรวจสอบการติดตั้ง
-    python3 --version
-    pip3 --version
+    echo "กำลังติดตั้ง Docker Compose เวอร์ชัน: $COMPOSE_VERSION"
     
-    print_success "ติดตั้ง Python สำเร็จแล้ว"
-}
-
-# ฟังก์ชันติดตั้ง Node.js เวอร์ชัน 22.20.0
-install_nodejs() {
-    print_status "กำลังติดตั้ง Node.js เวอร์ชัน 22.20.0..."
+    # ดาวน์โหลด Docker Compose
+    curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     
-    # ล้างแคชก่อน
-    rm -rf /etc/apt/sources.list.d/nodesource.list*
-    
-    # ติดตั้ง curl หากยังไม่มี
-    apt-get install -y curl
-    
-    # ดาวน์โหลดและรันสคริปต์ติดตั้ง NodeSource สำหรับ Node.js 22.x
-    curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-    
-    # ติดตั้ง Node.js
-    apt-get install -y nodejs
-    
-    # ตรวจสอบเวอร์ชัน
-    NODE_VERSION=$(node --version)
-    NPM_VERSION=$(npm --version)
-    
-    echo "Node.js เวอร์ชัน: $NODE_VERSION"
-    echo "npm เวอร์ชัน: $NPM_VERSION"
-    
-    # ตรวจสอบว่าเป็นเวอร์ชันที่ต้องการหรือไม่
-    if [[ "$NODE_VERSION" == "v22.20.0" ]]; then
-        print_success "ติดตั้ง Node.js เวอร์ชัน 22.20.0 สำเร็จแล้ว"
+    if [ $? -eq 0 ]; then
+        # กำหนดสิทธิ์การรัน
+        chmod +x /usr/local/bin/docker-compose
+        
+        # สร้าง symbolic link ไปยัง /usr/bin
+        ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose 2>/dev/null || true
+        
+        # ตรวจสอบการติดตั้ง
+        if /usr/local/bin/docker-compose --version &> /dev/null; then
+            print_success "ติดตั้ง Docker Compose สำเร็จ: $(/usr/local/bin/docker-compose --version)"
+        else
+            # ลองวิธีที่ 2: ติดตั้งผ่าน pip
+            print_status "ลองติดตั้งผ่าน pip..."
+            pip3 install docker-compose
+            
+            # ตรวจสอบอีกครั้ง
+            if docker-compose --version &> /dev/null; then
+                print_success "ติดตั้ง Docker Compose ผ่าน pip สำเร็จ"
+            else
+                # วิธีที่ 3: ใช้ docker compose plugin (Docker v2)
+                print_status "ลองใช้ Docker Compose Plugin..."
+                if docker compose version &> /dev/null; then
+                    print_success "ใช้ Docker Compose Plugin สำเร็จ"
+                    # สร้าง alias สำหรับ docker-compose
+                    echo 'alias docker-compose="docker compose"' >> /etc/profile.d/docker-compose.sh
+                    chmod +x /etc/profile.d/docker-compose.sh
+                    source /etc/profile.d/docker-compose.sh
+                else
+                    print_error "ไม่สามารถติดตั้ง Docker Compose ได้"
+                    return 1
+                fi
+            fi
+        fi
     else
-        print_status "ติดตั้ง Node.js สำเร็จแต่เป็นเวอร์ชัน $NODE_VERSION (ไม่ใช่ 22.20.0 พอดี)"
-        
-        # ทางเลือก: ติดตั้ง n สำหรับจัดการเวอร์ชัน Node.js
-        print_status "กำลังติดตั้ง n สำหรับจัดการเวอร์ชัน Node.js..."
-        npm install -g n
-        n 22.20.0
-        
-        # อัพเดท PATH
-        export PATH="$PATH:/usr/local/bin"
-        
-        # ตรวจสอบเวอร์ชันอีกครั้ง
-        NODE_VERSION=$(node --version)
-        echo "Node.js เวอร์ชันปัจจุบัน: $NODE_VERSION"
+        print_error "ดาวน์โหลด Docker Compose ล้มเหลว"
+        return 1
     fi
     
-    # ติดตั้ง yarn (ตัวเลือก)
-    print_status "กำลังติดตั้ง yarn..."
-    npm install -g yarn
+    # ตรวจสอบ PATH
+    print_status "ตรวจสอบ PATH..."
+    echo "PATH: $PATH"
+    echo "ตำแหน่ง docker-compose: $(which docker-compose 2>/dev/null || echo 'ไม่พบ')"
     
-    print_success "ติดตั้ง Node.js และ npm สำเร็จแล้ว"
+    return 0
 }
 
 # ฟังก์ชันติดตั้ง Docker
@@ -102,6 +100,7 @@ install_docker() {
     print_status "กำลังติดตั้ง Docker..."
     
     # ติดตั้งแพ็คเกจที่จำเป็น
+    apt-get update
     apt-get install -y \
         apt-transport-https \
         ca-certificates \
@@ -128,96 +127,151 @@ install_docker() {
     systemctl start docker
     systemctl enable docker
     
-    # เพิ่มผู้ใช้งานปัจจุบันเข้า Docker group (เพื่อรัน Docker โดยไม่ต้องใช้ sudo)
+    # เพิ่มผู้ใช้งานปัจจุบันเข้า Docker group
     if [ "$SUDO_USER" != "" ]; then
         usermod -aG docker $SUDO_USER
         print_status "เพิ่มผู้ใช้งาน $SUDO_USER เข้า Docker group แล้ว"
-        print_status "กรุณา logout และ login ใหม่เพื่อให้การเปลี่ยนแปลงมีผล"
     fi
     
     # ตรวจสอบการติดตั้ง
     docker --version
-    docker run hello-world
     
     print_success "ติดตั้ง Docker สำเร็จแล้ว"
 }
 
-# ฟังก์ชันติดตั้ง Docker Compose
-install_docker_compose() {
-    print_status "กำลังติดตั้ง Docker Compose..."
-    
-    # ดาวน์โหลด Docker Compose เวอร์ชันล่าสุด
-    # ตรวจสอบเวอร์ชันล่าสุดจาก GitHub
-    COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
-    
-    # ดาวน์โหลดและติดตั้ง Docker Compose
-    curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    
-    # กำหนดสิทธิ์การรัน
-    chmod +x /usr/local/bin/docker-compose
-    
-    # สร้าง symbolic link
-    ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
-    
-    # ตรวจสอบการติดตั้ง
-    docker-compose --version
-    
-    print_success "ติดตั้ง Docker Compose เวอร์ชัน ${COMPOSE_VERSION} สำเร็จแล้ว"
+# ฟังก์ชันติดตั้ง Python
+install_python() {
+    print_status "กำลังติดตั้ง Python..."
+    apt-get install -y python3 python3-pip python3-venv
+    print_success "ติดตั้ง Python สำเร็จ: $(python3 --version)"
 }
 
-# ฟังก์ชันแสดงสรุป
-show_summary() {
-    echo ""
-    echo "=========================================="
-    echo "         สรุปการติดตั้งสำเร็จ             "
-    echo "=========================================="
-    echo ""
+# ฟังก์ชันติดตั้ง Node.js
+install_nodejs() {
+    print_status "กำลังติดตั้ง Node.js 22.20.0..."
     
-    # แสดงเวอร์ชันของซอฟต์แวร์ที่ติดตั้ง
-    echo "1. Python:"
-    python3 --version 2>/dev/null || echo "  ไม่พบ Python"
+    # ติดตั้ง curl หากยังไม่มี
+    apt-get install -y curl
+    
+    # ติดตั้ง Node.js 22.x
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+    apt-get install -y nodejs
+    
+    # ติดตั้ง n สำหรับจัดการเวอร์ชัน
+    npm install -g n
+    
+    # ติดตั้ง Node.js 22.20.0
+    n 22.20.0
+    
+    # อัพเดท PATH
+    export PATH="$PATH:/usr/local/bin"
+    
+    print_success "ติดตั้ง Node.js สำเร็จ: $(node --version)"
+}
+
+# ฟังก์ชันแก้ไขปัญหา PATH
+fix_path_issues() {
+    print_status "กำลังแก้ไขปัญหา PATH..."
+    
+    # เพิ่ม /usr/local/bin ไปยัง PATH หากยังไม่มี
+    if [[ ":$PATH:" != *":/usr/local/bin:"* ]]; then
+        echo 'export PATH="/usr/local/bin:$PATH"' >> /etc/profile.d/custom_path.sh
+        chmod +x /etc/profile.d/custom_path.sh
+        export PATH="/usr/local/bin:$PATH"
+        print_success "เพิ่ม /usr/local/bin ไปยัง PATH แล้ว"
+    fi
+    
+    # สร้าง symbolic link สำรอง
+    if [ -f /usr/local/bin/docker-compose ] && [ ! -f /usr/bin/docker-compose ]; then
+        ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
+        print_success "สร้าง symbolic link สำหรับ docker-compose แล้ว"
+    fi
+    
+    # สร้าง alias สำหรับ docker compose plugin
+    if ! command -v docker-compose &> /dev/null && docker compose version &> /dev/null; then
+        echo 'alias docker-compose="docker compose"' >> /etc/profile.d/docker-alias.sh
+        chmod +x /etc/profile.d/docker-alias.sh
+        source /etc/profile.d/docker-alias.sh
+        print_success "สร้าง alias docker-compose='docker compose' แล้ว"
+    fi
+}
+
+# ฟังก์ชันตรวจสอบการติดตั้ง
+verify_installation() {
+    print_status "\nกำลังตรวจสอบการติดตั้ง..."
     
     echo ""
-    echo "2. Node.js:"
-    node --version 2>/dev/null || echo "  ไม่พบ Node.js"
-    npm --version 2>/dev/null && echo "  npm: $(npm --version 2>/dev/null)"
+    echo "=== ผลการตรวจสอบ ==="
+    
+    # ตรวจสอบ Python
+    if command -v python3 &> /dev/null; then
+        echo "✓ Python: $(python3 --version 2>/dev/null || echo 'ติดตั้งแล้ว')"
+    else
+        echo "✗ Python: ไม่พบ"
+    fi
+    
+    # ตรวจสอบ Node.js
+    if command -v node &> /dev/null; then
+        echo "✓ Node.js: $(node --version 2>/dev/null || echo 'ติดตั้งแล้ว')"
+    else
+        echo "✗ Node.js: ไม่พบ"
+    fi
+    
+    # ตรวจสอบ Docker
+    if command -v docker &> /dev/null; then
+        echo "✓ Docker: $(docker --version 2>/dev/null || echo 'ติดตั้งแล้ว')"
+    else
+        echo "✗ Docker: ไม่พบ"
+    fi
+    
+    # ตรวจสอบ Docker Compose
+    if command -v docker-compose &> /dev/null; then
+        echo "✓ Docker Compose: $(docker-compose --version 2>/dev/null || echo 'ติดตั้งแล้ว')"
+    elif docker compose version &> /dev/null; then
+        echo "✓ Docker Compose Plugin: $(docker compose version --short 2>/dev/null || echo 'ใช้งานได้')"
+    else
+        echo "✗ Docker Compose: ไม่พบ"
+    fi
     
     echo ""
-    echo "3. Docker:"
-    docker --version 2>/dev/null || echo "  ไม่พบ Docker"
-    
+}
+
+# ฟังก์ชันแสดงวิธีแก้ไขปัญหา
+show_troubleshooting() {
     echo ""
-    echo "4. Docker Compose:"
-    docker-compose --version 2>/dev/null || echo "  ไม่พบ Docker Compose"
-    
+    echo "=== แก้ไขปัญหา docker-compose not found ==="
     echo ""
-    echo "=========================================="
-    echo "หมายเหตุ:"
-    echo "- สำหรับการใช้งาน Docker โดยไม่ต้องใช้ sudo"
-    echo "  ให้ logout และ login ใหม่"
-    echo "- สำหรับการเปลี่ยนเวอร์ชัน Node.js"
-    echo "  สามารถใช้คำสั่ง 'n' ได้"
-    echo "=========================================="
+    echo "หากยังพบปัญหา ให้ลองวิธีต่อไปนี้:"
+    echo ""
+    echo "1. อัพเดท PATH:"
+    echo "   source /etc/profile.d/custom_path.sh"
+    echo ""
+    echo "2. ใช้ Docker Compose Plugin:"
+    echo "   docker compose version"
+    echo ""
+    echo "3. สร้าง alias:"
+    echo "   alias docker-compose='docker compose'"
+    echo ""
+    echo "4. ตรวจสอบตำแหน่งไฟล์:"
+    echo "   ls -la /usr/local/bin/docker-compose"
+    echo "   ls -la /usr/bin/docker-compose"
+    echo ""
+    echo "5. รีสตาร์ท terminal หรือ logout/login ใหม่"
 }
 
 # ฟังก์ชันหลัก
 main() {
-    # แสดงหัวข้อ
     echo "=========================================="
     echo "   สคริปต์ติดตั้ง Docker Stack บน Ubuntu   "
     echo "=========================================="
-    echo ""
-    echo "จะติดตั้งซอฟต์แวร์ต่อไปนี้:"
-    echo "1. Python 3 และ pip"
-    echo "2. Node.js เวอร์ชัน 22.20.0"
-    echo "3. Docker Engine"
-    echo "4. Docker Compose"
-    echo ""
-    echo "ระบบปฏิบัติการ: $(lsb_release -d | cut -f2)"
-    echo "สถาปัตยกรรม: $(uname -m)"
-    echo ""
     
-    # ขอการยืนยันจากผู้ใช้
+    # ตรวจสอบสิทธิ์ root
+    if [[ $EUID -ne 0 ]]; then
+        print_error "ต้องใช้สิทธิ์ root (sudo) ในการรันสคริปต์นี้"
+        exit 1
+    fi
+    
+    # ขอการยืนยัน
     read -p "ต้องการติดตั้งตอนนี้หรือไม่? (y/N): " -n 1 -r
     echo ""
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -225,27 +279,22 @@ main() {
         exit 0
     fi
     
-    # ตรวจสอบสิทธิ์ root
-    check_root
-    
-    # บันทึกเวลาเริ่มต้น
-    START_TIME=$(date +%s)
-    
-    # ติดตั้งแพ็คเกจทั้งหมดตามลำดับ
+    # ติดตั้งตามลำดับ
     install_python
     install_nodejs
     install_docker
     install_docker_compose
+    fix_path_issues
     
-    # คำนวณเวลาที่ใช้
-    END_TIME=$(date +%s)
-    DURATION=$((END_TIME - START_TIME))
+    # ตรวจสอบการติดตั้ง
+    verify_installation
     
-    # แสดงสรุป
-    show_summary
+    # แสดงวิธีแก้ไขปัญหา
+    show_troubleshooting
     
     echo ""
-    print_success "การติดตั้งเสร็จสมบูรณ์ในเวลา $DURATION วินาที"
+    print_success "การติดตั้งเสร็จสมบูรณ์!"
+    echo "หมายเหตุ: กรุณาเปิด terminal ใหม่หรือรัน 'source ~/.bashrc' เพื่อให้การเปลี่ยนแปลงมีผล"
 }
 
 # รันฟังก์ชันหลัก
