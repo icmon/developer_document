@@ -7,7 +7,7 @@
 # วันที่: $(date)  y
 # sudo ./docker.sh
 #!/bin/bash
-# sudo ./fix-docker-permission.sh
+# sudo ./fixdockerpermission.sh
 
 # สคริปต์ติดตั้ง Docker, Python, Node.js และ Docker Compose บน Ubuntu
 # แก้ไขปัญหา docker-compose command not found
