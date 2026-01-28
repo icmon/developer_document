@@ -29,6 +29,8 @@ sudo ufw allow 1883
 sudo ufw allow 1884
 sudo ufw allow 6379
 sudo ufw allow 6380
+sudo ufw allow 8086
+sudo ufw allow 8087
 
 # Check the rules
 sudo ufw status verbose
