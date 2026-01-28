@@ -31,9 +31,10 @@ sudo ufw allow 6379
 sudo ufw allow 6380
 sudo ufw allow 8086
 sudo ufw allow 8087
-
+sudo ufw default deny incoming    # Blocks ALL incoming traffic by default
+sudo ufw default allow outgoing   # Allows ALL outgoing traffic by default
 # Check the rules
 sudo ufw status verbose
 # Set defaults (be careful - this will block all other incoming traffic)
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
+ 
+ 
