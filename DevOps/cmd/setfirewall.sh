@@ -27,6 +27,9 @@ sudo ufw allow 1880
 sudo ufw allow 1881
 sudo ufw allow 1883
 sudo ufw allow 1884
+sudo ufw allow 6379
+sudo ufw allow 6380
+
 # Check the rules
 sudo ufw status verbose
 # Set defaults (be careful - this will block all other incoming traffic)
