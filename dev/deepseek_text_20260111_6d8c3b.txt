@@ -1,0 +1,33 @@
+Data Flow Diagram:
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Device    │────▶│    MQTT     │────▶│  NestJS     │
+│  (Sensor)   │     │   Broker    │     │   Server    │
+└─────────────┘     └─────────────┘     └──────┬──────┘
+                                                │
+                                                ▼
+                                       ┌─────────────────┐
+                                       │  Redis Cache    │
+                                       │  (Rate Limit)   │
+                                       └─────────────────┘
+                                                │
+                                                ▼
+                                       ┌─────────────────┐
+                                       │  Notification   │
+                                       │   Processor     │
+                                       └──────┬──────┬──────┘
+                                              │      │
+                                              ▼      ▼
+                                      ┌─────────┐ ┌─────────┐
+                                      │PostgreSQL│ │Socket.IO│
+                                      │ Database │ │ Clients │
+                                      └─────────┘ └─────────┘
+                                              │
+                                              ▼
+                                   ┌─────────────────────┐
+                                   │ Notification        │
+                                   │ Delivery Service    │
+                                   └─┬──┬──┬──┬──┬──┬──┬┘
+                                     │  │  │  │  │  │  │
+                                     ▼  ▼  ▼  ▼  ▼  ▼  ▼
+                                    LINE,Discord,Telegram,
+                                    SMS,AI Bot,Email,etc.
