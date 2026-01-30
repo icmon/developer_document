@@ -31,6 +31,17 @@ sudo ufw allow 6379
 sudo ufw allow 6380
 sudo ufw allow 8086
 sudo ufw allow 8087
+sudo ufw allow 52160
+sudo ufw allow 52161
+sudo ufw allow 52162
+sudo ufw allow 52163
+sudo ufw allow 52164
+sudo ufw allow 52165
+sudo ufw allow 52166
+sudo ufw allow 52167
+sudo ufw allow 52168
+sudo ufw allow 52169
+sudo ufw allow 52170
 sudo ufw default deny incoming    # Blocks ALL incoming traffic by default
 sudo ufw default allow outgoing   # Allows ALL outgoing traffic by default
 # Check the rules
